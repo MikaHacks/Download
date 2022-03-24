@@ -247,7 +247,7 @@ function downloadData(text) {
 		return true;*/
 		link.click();
 		
-		localStorage.setItem('downloaded-before', 'true');
+		localStorage.setItem('downloaded-before', 'false');
 	} else {
 		if (localStorage.getItem('dont-download') !== 'true') {
 			if (confirm("You've already downloaded the file! Do you want to download it again?")) {
