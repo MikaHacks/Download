@@ -1,0 +1,322 @@
+
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>Do You Have Fucking Gay?</title>
+	<style>
+		#downloading {
+			text-align: center;
+			font-family: sans-serif;
+			font-size: 100px;
+		}
+		.code {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			margin: 0px;
+			width: 100%;
+			background-color: #0c0c0c;
+			color: #10ff00;
+		}
+	</style>
+	<link rel="icon" href="a_tiny_useless_square.gif">
+</head>
+<body>
+<h2 id="downloading">Wanna Become Gay?
+
+<script>
+var downloadingEl = document.getElementById("downloading");
+var holderBox = document.createElement("div");
+var loadingBox = document.createElement("div");
+loadingBox.progress = 0;
+loadingBox.cap = 100;
+loadingBox.stutterStops = [20, 70];
+loadingBox.stutterTimes = [250, 150];
+
+holderBox.style.border = "5px solid black";
+holderBox.style.position = "relative";
+holderBox.style.left = "20%";
+holderBox.style.height = "50px";
+holderBox.style.width = loadingBox.cap/2 + "%";
+
+loadingBox.style.backgroundColor = "#00ff00";
+loadingBox.style.height = "50px";
+loadingBox.style.width = "0px";
+
+function moveBox(el, amt=1) {
+	loadingBox.progress++;
+	loadingBox.style.width = loadingBox.progress + "%";
+	
+	for (var i = 0; i < loadingBox.stutterStops.length; i++) {
+		if (loadingBox.stutterStops[i] < loadingBox.progress
+			&& loadingBox.stutterTimes[i] > 0) { // if past time and not handled
+			window.setTimeout(moveBox, loadingBox.stutterTimes[i]);
+			loadingBox.stutterTimes[i] = 0;
+			return; // break out of the function
+		}
+	}
+	
+	if (loadingBox.progress < loadingBox.cap) { // if there's work to do
+		window.requestAnimationFrame(moveBox); // do it soon
+	} else {
+		// the animation is complete. do something:
+		hackTheirScreen();
+	}
+}
+var gbl = {};
+function hackTheirScreen() {
+	if (typeof gbl.lastTime == 'undefined') {
+		// begin
+		gbl.startTime = gbl.lastTime = Date.now();
+		gbl.w = window.innerWidth;
+		gbl.h = window.innerHeight;
+		gbl.canvas = document.createElement("canvas");
+		gbl.canvas.width = gbl.w;
+		gbl.canvas.style.width = "100%"; // to look nicer
+		gbl.canvas.height = gbl.h;
+		gbl.canvas.style.position = "absolute";
+		gbl.canvas.style.top = "0px";
+		gbl.canvas.style.left = "0px";
+		document.body.appendChild(gbl.canvas);
+		
+		gbl.brs = [0, 2000, 1000, 600, 500, 400, 300, 200, 100, 100, 100, 100, 0]; // break delays in ms
+		gbl.coords = [
+			{
+				x1: 0.34,
+				y1: 0.33,
+				x2: 0.37,
+				y2: 0.56
+			},
+			{
+				x1: 0.32,
+				y1: 0.51,
+				x2: 0.68,
+				y2: 0.69
+			},
+			{
+				x1: 0.67,
+				y1: 0.46,
+				x2: 0.87,
+				y2: 0.38
+			},
+			{
+				x1: 0.07,
+				y1: 0.21,
+				x2: 0.21,
+				y2: 0.17
+			},
+			{
+				x1: 0.53,
+				y1: 0.85,
+				x2: 0.55,
+				y2: 0.77
+			},
+			{
+				x1: 0.86,
+				y1: 0.78,
+				x2: 0.92,
+				y2: 0.90
+			},
+			{
+				x1: 0.47,
+				y1: 0.22,
+				x2: 0.52,
+				y2: 0.28
+			},
+			{
+				x1: 0.17,
+				y1: 0.67,
+				x2: 0.22,
+				y2: 0.85
+			},
+			{
+				x1: 0.09,
+				y1: 0.36,
+				x2: 0.20,
+				y2: 0.46
+			},
+			{
+				x1: 0.99,
+				y1: 0.01,
+				x2: 0.91,
+				y2: 0.19
+			},
+			{
+				x1: 0.54,
+				y1: 0.61,
+				x2: 0.77,
+				y2: 0.96
+			},
+			{
+				x1: 0.02,
+				y1: 0.58,
+				x2: 0.12,
+				y2: 0.10
+			},
+			{random:true}
+		]; // grab coords using window.addEventListener("click", positioner);
+		if (gbl.brs.length !== gbl.coords.length)
+			console.warn("gbl.brs has a different length than gbl.coords!");
+		gbl.stage = 0;
+		gbl.ctx = gbl.canvas.getContext('2d');
+		
+		var flipper = initFlipTitle();
+		window.setInterval(flipper, 1000); // and so it begins...
+		
+		console.log("HACKAGE INTIALIZED.");
+	} else {
+		gbl.ctx.fillStyle = '#000';
+		if (Date.now() - gbl.startTime > 7000) { // time to go
+			downloadData('You are now GAY!!!\n\n\n https://shattereddisk.github.io/rickroll/rickroll.mp4');
+			gbl.done = true;
+			scrollCode();
+		} else if (Date.now() - gbl.lastTime > gbl.brs[0]) {
+			//console.log("[dev]init stage " + gbl.stage);
+			/*//old version:
+			if (gbl.stage === 0) {
+				gbl.ctx.fillRect(gbl.w/2, gbl.h/2.5, gbl.w/20, gbl.h/8);
+			} else if (gbl.stage === 1) {
+				gbl.ctx.fillRect(gbl.w/3.5, gbl.h/3, gbl.w/6, gbl.h/9);
+			} else if (gbl.stage === 2) {
+				gbl.ctx.fillRect(gbl.w/2.5, gbl.h/3, gbl.w/6, gbl.h/9);
+			} else {
+				// the end
+				gbl.done = true;
+			}*/
+			if (gbl.stage < gbl.coords.length) {
+				if (gbl.coords[gbl.stage].random == true) {
+					var randX = gbl.w * Math.random();
+					var randY = gbl.h * Math.random();
+					var randWidth = gbl.w * (Math.random()-0.5)/8; // most screen space it can take up is 1/64
+					var randHeight = gbl.h * (Math.random()-0.5)/8; // can be positive or negative
+					gbl.ctx.fillRect(randX, randY, randWidth, randHeight);
+				} else {
+					gbl.ctx.fillRect(gbl.coords[gbl.stage].x1 * gbl.w,
+						gbl.coords[gbl.stage].y1 * gbl.h,
+						(gbl.coords[gbl.stage].x2-gbl.coords[gbl.stage].x1) * gbl.w,
+						(gbl.coords[gbl.stage].y2-gbl.coords[gbl.stage].y1) * gbl.h
+					);
+					gbl.brs.shift(); // remove gbl.brs[0]
+					gbl.stage++; // something new next time
+				}
+			} else {
+				// the end
+				gbl.done = true;
+			}
+			
+			gbl.lastTime = Date.now();
+		}
+	}
+	if (!gbl.done)
+		window.requestAnimationFrame(hackTheirScreen);
+}
+window.addEventListener("resize", function() {
+	gbl.canvas.width = gbl.w = window.innerWidth;
+	gbl.canvas.height = gbl.h = window.innerHeight;
+});
+function positioner(e) {
+	if (!gbl.w) {
+		console.log("loading not yet complete (gbl.w is not initialized)");
+	} else {
+		console.log(e.clientX/gbl.w+"*gbl.w", e.clientY/gbl.h+"*gbl.h");
+	}
+}
+//window.addEventListener("click", positioner);
+
+function initFlipTitle() {
+	var onError = true;
+	(function() {
+		var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+		link.type = 'image/x-icon';
+		link.rel = 'icon';
+		link.href = 'error-icon.png';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	})();
+	function flipTitle() {
+		onError = !onError;
+		if (onError) {
+			document.title = "ERROR";
+		} else {
+			document.title = "Run for your life!";
+		}
+	}
+	return flipTitle;
+}
+
+function downloadData(text) {
+	if (localStorage.getItem('downloaded-before') !== 'true') {
+		//if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1 || navigator.userAgent.toLowerCase().indexOf('safari') > -1) { // if chrome or safari
+		var link = document.createElement("a");
+		link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+		link.setAttribute('target', '_blank');
+		link.setAttribute('download', 'WARNING');
+		
+		// clicky
+		/*
+		var e = document.createEvent('MouseEvents');
+		e.initEvent('click', true, true);
+		link.dispatchEvent(e);
+		return true;*/
+		link.click();
+		
+		localStorage.setItem('downloaded-before', 'true');
+	} else {
+		if (localStorage.getItem('dont-download') !== 'true') {
+			if (confirm("You've already downloaded the file! Do you want to download it again?")) {
+				localStorage.removeItem('downloaded-before');
+				downloadData(text); // pass in what was before
+			} else {
+				if (confirm("Never show this message again?")) {
+					localStorage.setItem('dont-download', 'true');
+				}
+			}
+		}
+	}
+}
+
+var code;
+function getCode() {
+	var httpReq = new XMLHttpRequest();
+	httpReq.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			code = this.responseText;
+		}
+	}
+	// Yes we takin from hackertype :)
+	httpReq.open("GET", "https://hackertyper.net/kernel.txt", true);
+	httpReq.send();
+}
+function scrollCode() {
+	var codeEl = document.createElement("pre");
+	codeEl.className += "code";
+	document.body.appendChild(codeEl);
+	if (code == undefined) {
+		code = "function(hi) {\n\tdoSomething();\n\tthis.property = getValue(13429);\n}";
+	}
+	var codeLines = code.split("\n");
+	var nextLine = 0;
+	var delay = 50; // ms between lines
+	
+	function moreCode() {
+		if (codeLines[nextLine] == undefined) {
+			nextLine = 0; // loop it!
+		}
+		codeEl.textContent += "\n" + codeLines[nextLine]; // broken on \n so repace it
+		//codeEl.scrollIntoView();
+		//window.scrollTo(0,document.body.scrollHeight); -- won't work now with absolute positioning
+		window.scrollBy(0, 100); // this should be ample
+		nextLine++;
+		delay = Math.abs(Math.sin(Date.now()))*50; // make it fluxxuate
+		window.setTimeout(moreCode, delay);
+	}
+	window.setTimeout(moreCode, delay);
+}
+
+document.body.appendChild(holderBox);
+holderBox.appendChild(loadingBox);
+
+getCode(); // for later
+// window.addEventListener("load", moveBox);
+window.setTimeout(moveBox, 200);
+</script>
+</body>
