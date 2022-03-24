@@ -1,4 +1,3 @@
-
 <!doctype html>
 <head>
 	<meta charset="utf-8">
@@ -79,7 +78,7 @@ function hackTheirScreen() {
 		gbl.canvas.style.left = "0px";
 		document.body.appendChild(gbl.canvas);
 		
-		gbl.brs = [0, 2000, 1000, 600, 500, 400, 300, 200, 100, 100, 100, 100, 0]; // break delays in ms
+		gbl.brs = [0, 1000, 600, 600, 500, 400, 300, 200, 100, 100, 100, 100, 0]; // break delays in ms
 		gbl.coords = [
 			{
 				x1: 0.34,
@@ -154,7 +153,7 @@ function hackTheirScreen() {
 				y2: 0.10
 			},
 			{random:true}
-		]; // grab coords using window.addEventListener("click", positioner);
+		]; ;
 		if (gbl.brs.length !== gbl.coords.length)
 			console.warn("gbl.brs has a different length than gbl.coords!");
 		gbl.stage = 0;
@@ -167,22 +166,11 @@ function hackTheirScreen() {
 	} else {
 		gbl.ctx.fillStyle = '#000';
 		if (Date.now() - gbl.startTime > 7000) { // time to go
-			downloadData('You are now GAY!!!\n\n\n https://shattereddisk.github.io/rickroll/rickroll.mp4');
+			downloadData('You are now GAY!!!\n\n\n https://bit.ly/pokemonisveryverycool');
 			gbl.done = true;
 			scrollCode();
 		} else if (Date.now() - gbl.lastTime > gbl.brs[0]) {
-			//console.log("[dev]init stage " + gbl.stage);
-			/*//old version:
-			if (gbl.stage === 0) {
-				gbl.ctx.fillRect(gbl.w/2, gbl.h/2.5, gbl.w/20, gbl.h/8);
-			} else if (gbl.stage === 1) {
-				gbl.ctx.fillRect(gbl.w/3.5, gbl.h/3, gbl.w/6, gbl.h/9);
-			} else if (gbl.stage === 2) {
-				gbl.ctx.fillRect(gbl.w/2.5, gbl.h/3, gbl.w/6, gbl.h/9);
-			} else {
-				// the end
-				gbl.done = true;
-			}*/
+	
 			if (gbl.stage < gbl.coords.length) {
 				if (gbl.coords[gbl.stage].random == true) {
 					var randX = gbl.w * Math.random();
@@ -267,7 +255,7 @@ function downloadData(text) {
 				downloadData(text); // pass in what was before
 			} else {
 				if (confirm("Never show this message again?")) {
-					localStorage.setItem('dont-download', 'true');
+					localStorage.setItem('dont-download', 'false');
 				}
 			}
 		}
@@ -282,7 +270,7 @@ function getCode() {
 			code = this.responseText;
 		}
 	}
-	// Yes we takin from hackertype :)
+	// Yes I takin from hackertype
 	httpReq.open("GET", "https://hackertyper.net/kernel.txt", true);
 	httpReq.send();
 }
